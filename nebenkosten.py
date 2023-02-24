@@ -65,8 +65,9 @@ def display_window():
 ############################## Skript starts here ############################
 ##############################################################################
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG)
-logger.setLevel(logging.DEBUG)
+logging.basicConfig(format='%(levelname)s:%(name)s:line_%(lineno)d:%(funcName)s:%(message)s', level=logging.DEBUG)
+# logging.basicConfig(format='%(levelname)s:%(name)s:line_%(lineno)d:%(funcName)s:%(message)s', level=logging.WARNING)
+# logger.setLevel(logging.DEBUG)
 
 if __name__ == "__main__":
 

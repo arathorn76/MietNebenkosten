@@ -1,8 +1,10 @@
 import tkinter
+from tkinter import ttk
 import sources.appartments as appartments
 import sources.house as houses
 import config.nebenkosten_text_de as texte
 import sources.textselector as textsel
+import logging
 
 
 ##############################################################################
@@ -83,14 +85,12 @@ def gui_appartments_frame(parent):
         houslist = list()
         for h in houses.houses:
             houslist.append(h.name)
-            print(h.name)
-        print(houslist)
+        logger.debug('Hausliste: %s', houslist)
  
         #FIXME per textselector Haus auswählen
         sel = textsel.select_text(houslist)
-        print(sel)
         new_id = houses.houses[houslist.index(sel)].id
-        print(sel, new_id)
+        logger.debug('Auswahlg: %s mit ID %s', sel, new_id)
         #TODO ausgewählte Haus-ID übernehmen und Haus-Name aktualisieren
         pass
 
@@ -138,16 +138,19 @@ def gui_appartments_frame(parent):
     
     housid_label = tkinter.Label(data_frame, text=texte.house)
     housid_var = tkinter.StringVar(data_frame)
-    housid_data = tkinter.Entry(data_frame, textvariable=housid_var)
+    # housid_data = tkinter.Entry(data_frame, textvariable=housid_var)
+    housid_data = ttk.Combobox(data_frame, textvariable=housid_var, values=[1,2])
     housid_label.grid(row=2, column=1, sticky=tkinter.W)
     housid_data.grid(row=2, column=2, columnspan=3, sticky=tkinter.W+tkinter.E)
+
     house_label = tkinter.Label(data_frame, text=texte.house)
     house_var = tkinter.StringVar(data_frame)
     house_data = tkinter.Entry(data_frame, textvariable=house_var,state=tkinter.DISABLED)
     house_label.grid(row=3, column=1, sticky=tkinter.W)
     house_data.grid(row=3, column=2, columnspan=4, sticky=tkinter.W+tkinter.E)
-    house_choose_button = tkinter.Button(data_frame, text=texte.button_house_choose, command=button_house_choose_action)
-    house_choose_button.grid(row=2, column=3)
+    # house_choose_button = tkinter.Button(data_frame, text=texte.button_house_choose, command=button_house_choose_action)
+    # house_choose_button.grid(row=2, column=3)
+    housid_data.bind('<<ComboboxSelected>>', house_var.set(houses.get_house_by_id(housid_var.get())))
 
     lage_label = tkinter.Label(data_frame, text=texte.lage)
     lage_var = tkinter.StringVar(data_frame)
@@ -197,7 +200,9 @@ def gui_appartments_frame(parent):
 ##############################################################################
 ############################## Skript starts here ############################
 ##############################################################################
+logger = logging.getLogger(__name__)
 apps_index = 0
+
 
 if __name__ == "__main__":
     gui_appartments_frame(None)
