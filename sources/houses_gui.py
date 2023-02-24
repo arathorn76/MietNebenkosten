@@ -1,4 +1,3 @@
-# import imp
 import tkinter
 from tkinter import ttk
 import sources.house as house
