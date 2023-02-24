@@ -83,9 +83,12 @@ def gui_appartments_frame(parent):
         houslist = list()
         for h in houses.houses:
             houslist.append(h.name)
+            print(h.name)
+        print(houslist)
  
         #FIXME per textselector Haus auswählen
         sel = textsel.select_text(houslist)
+        print(sel)
         new_id = houses.houses[houslist.index(sel)].id
         print(sel, new_id)
         #TODO ausgewählte Haus-ID übernehmen und Haus-Name aktualisieren
