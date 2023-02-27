@@ -139,7 +139,7 @@ def gui_appartments_frame(parent):
     housid_label = tkinter.Label(data_frame, text=texte.house)
     housid_var = tkinter.StringVar(data_frame)
     # housid_data = tkinter.Entry(data_frame, textvariable=housid_var)
-    housid_data = ttk.Combobox(data_frame, textvariable=housid_var, values=[1,2])
+    housid_data = ttk.Combobox(data_frame, textvariable=housid_var, values=[1,2]) #FIXME #2 issue 1
     housid_label.grid(row=2, column=1, sticky=tkinter.W)
     housid_data.grid(row=2, column=2, columnspan=3, sticky=tkinter.W+tkinter.E)
 
